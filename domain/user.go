@@ -25,14 +25,18 @@ func (user *User) Prepare() error {
 	}
 	user.Password = string(password)
 	// gera um Token para o usuario
-	token, erroToken := uuid.NewV4()
+	token, errorToken := uuid.NewV4()
+
+	if errorToken != nil {
+		log.Fatalf("Erro during create token")
+	}
 	user.Token = token.String()
 
-	errorValidateUser = user.validate()
+	errorValidateUser := user.validate()
 
 	// verifica se houve algum erro na validacao dos dados do usuario
 	if errorValidateUser != nil {
-		log.Fatalf("Error during the user validation, %v", error)
+		log.Fatalf("Error during the user validation, %v", errorValidateUser)
 		return errorValidateUser
 	}
 
@@ -40,16 +44,5 @@ func (user *User) Prepare() error {
 }
 
 func (user *User) validate() error {
-
-	if len(user.Name) == 0 {
-		error = nil
-		log.Fatalf("Nome do usuário inválido ou sem caracteris, %v: ", error)
-	}
-
-	if len(user.Email) == 0 {
-		error = nil
-		log.Fatalf("E-mail obrigatório, %v: ", error)
-	}
-
-	return error
+	return nil
 }

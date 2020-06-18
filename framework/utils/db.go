@@ -7,6 +7,7 @@ import (
 	"github.com/italoa7x/simple-project-golang/domain"
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
 )
 
 func ConnectDB() *gorm.DB {

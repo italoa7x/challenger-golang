@@ -9,10 +9,10 @@ import (
 )
 
 type Base struct {
-	ID        string `json:"user_id"; gorm:type:"uuid;primary_key"`
-	CreatedAt string `json: "created_at"; gorm:type:"datetime"`
-	UpdatedAt string `json: "updated_at"; gorm:type:"datetime`
-	DeletedAt string `json: "deleted_at; gorm:type:"datetime" sql:"index"`
+	ID        string    `json:"user_id"; gorm:type:"uuid;primary_key"`
+	CreatedAt time.Time `json: "created_at"`
+	UpdatedAt time.Time `json: "updated_at"`
+	DeletedAt time.Time `json: "deleted_at`
 }
 
 func newUser() *User {
@@ -28,6 +28,9 @@ func (base *Base) BeforeCreate(scope *gorm.Scope) error {
 	// cria um ID unico para o usuario, sempre que a estrutura Base for iniciada.
 	idUser, errorIDUser := uuid.NewV4()
 	// Atribiu para o usuario o ID gerado
+	if errorIDUser != nil {
+		log.Fatalf("Error during create user ID")
+	}
 	scope.SetColumn("ID", idUser.String())
 	// Verifica se ocorreu  um erro na geracao do ID, se sim, retorna uma mesagem de erro
 	if err != nil {
