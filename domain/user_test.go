@@ -10,6 +10,6 @@ import (
 
 func testNewUser(t *testing.T) {
 
-	_, err := domain.NewUser("Italo", "italo@gmail.com", "123")
+	_, err := domain.NewStructUser("Italo", "italo@gmail.com", "123")
 	require.Nil(t, err)
 }
