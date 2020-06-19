@@ -13,10 +13,11 @@ func main() {
 	db := utils.ConnectDB()
 
 	user := domain.User{
-		Name:     "italo",
-		Email:    "italo@gmail.com",
-		Password: "italo123",
+		Name: "maria",
+		Email: "Maria@gmail.com",
+		Password: "maria90",
 	}
+	user.Prepare()
 
 	userRepo := repositories.UserRepositoryDB{Db: db}
 	result, err := userRepo.Insert(&user)

@@ -43,10 +43,11 @@ func NewStructUser(name string, email string, password string) (*User, error) {
 // funcao que prepara o Hash da senha e do Token do usuario
 func (user *User) Prepare() error {
 	// cria um Hash da senha
-	password, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	password, errorPassword := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	// Se não houver uma nova instância do ERRO, significa que a criação do Hash ocorreu com sucesso.
-	if err != nil {
-		log.Fatalf("Error during the password generation, %v: ", err)
+	if errorPassword != nil {
+		log.Fatalf("Error during the password generation, %v: ", errorPassword)
+		return errorPassword
 	}
 	// atribui o novo hash ao usuario
 	user.Password = string(password)
@@ -55,6 +56,7 @@ func (user *User) Prepare() error {
 	// verifica se houve erro na criacao do token
 	if errorToken != nil {
 		log.Fatalf("Erro during create token")
+		return errorToken
 	}
 	user.Token = token.String()
 	errorValidateUser := user.validate()
