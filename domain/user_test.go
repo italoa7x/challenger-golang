@@ -1,15 +1,15 @@
 package domain_test
 
 import (
+	"github.com/italoa7x/simple-project-golang/domain"
 	"testing"
 
-	"github.com/stretchr/testify/require"
 
-	"github.com/italoa7x/simple-project-golang/domain"
+	"github.com/stretchr/testify/require"
 )
 
 func testNewUser(t *testing.T) {
 
-	_, err := domain.User.NewStructUser()
+	_, err := domain.NewUser("Italo", "italo@gmail.com", "123")
 	require.Nil(t, err)
 }

@@ -9,11 +9,11 @@ import (
 )
 
 type User struct {
-	Base
+	Base	 `valid:"required"`
 	Name     string `gorm:"type:varchar(255)" valid:"notnull"`
-	Email    string `gorm:"type:varchar(255);unique_index"`
-	Password string `json:"-"`
-	Token    string `json:"token" gorm:"unique_index"`
+	Email    string `gorm:"type:varchar(255);unique_index" valid:"notnull, email"`
+	Password string `json:"-" valid:"notnull"`
+	Token    string `json:"token" gorm:"unique_index" valid:"notnull, uuid"`
 }
 
 // primeira funcao a ser executada quando a estrutura for lida
